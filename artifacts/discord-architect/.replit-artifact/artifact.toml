@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Discord Architect"
+version = "1.0.0"
+id = "artifacts/discord-architect"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22922
+
+[services.development]
+run = "pnpm --filter @workspace/discord-architect run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/discord-architect", "run", "build" ]
+publicDir = "artifacts/discord-architect/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22922"
+BASE_PATH = "/"
